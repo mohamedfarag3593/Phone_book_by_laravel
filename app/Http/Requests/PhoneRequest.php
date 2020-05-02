@@ -25,7 +25,7 @@ class PhoneRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('phone');
+        $id = $this->route('phone')['id'];
         // dd($id);
         return [
             'phone' => [

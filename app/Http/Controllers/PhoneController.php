@@ -37,11 +37,8 @@ class PhoneController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PhoneRequest $request)
-    {
-        $phone = new Phone;
-        $phone->phone = $request->phone;
-        $phone->user_id = Auth::id();
-        $phone->save();
+    {        
+        Auth::user()->phones()->create($request->all());        
         return redirect()->route('phones.index');
     }
 
@@ -62,9 +59,8 @@ class PhoneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $phone = Phone::findOrFail($id);
+    public function edit(Phone $phone)
+    {        
         return view('phones.edit', ['phone' => $phone]);
     }
 
@@ -75,11 +71,9 @@ class PhoneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PhoneRequest $request, $id)
-    {
-        $phone = Phone::findOrFail($id);
-        $phone->phone = $request->phone;
-        $phone->save();
+    public function update(PhoneRequest $request,Phone $phone)
+    {        
+        $phone->update($request->all());        
         return redirect()->route('phones.index');
     }
 
@@ -89,9 +83,8 @@ class PhoneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $phone = Phone::findOrFail($id);
+    public function destroy(Phone $phone)
+    {        
         $phone->delete();
         return redirect()->route('phones.index');
     }
