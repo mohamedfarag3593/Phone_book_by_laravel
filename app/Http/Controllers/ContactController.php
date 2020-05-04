@@ -31,7 +31,9 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('contacts.create');
+        $users=User::select('username')->where('id','!=',Auth::id())->pluck('username');
+        // dd($users);
+        return view('contacts.create',['users'=>$users]);
     }
 
     /**

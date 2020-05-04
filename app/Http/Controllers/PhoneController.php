@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class PhoneController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Phone::class, 'phone');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,7 @@ class PhoneController extends Controller
      */
     public function index()
     {
-        $phones = Phone::where('user_id',Auth::id())->get();
+        $phones = Phone::where('user_id', Auth::id())->get();
         return view('phones.index', ['phones' => $phones]);
     }
 
@@ -37,8 +41,8 @@ class PhoneController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PhoneRequest $request)
-    {        
-        Auth::user()->phones()->create($request->all());        
+    {
+        Auth::user()->phones()->create($request->all());
         return redirect()->route('phones.index');
     }
 
@@ -71,9 +75,9 @@ class PhoneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PhoneRequest $request,Phone $phone)
-    {        
-        $phone->update($request->all());        
+    public function update(PhoneRequest $request, Phone $phone)
+    {      
+        $phone->update($request->all());
         return redirect()->route('phones.index');
     }
 

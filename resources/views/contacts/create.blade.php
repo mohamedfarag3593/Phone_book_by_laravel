@@ -11,9 +11,16 @@
             <div class="card">
                 <div class="card-header">Add Contact</div>
                 <div class="card-body">
-                    {!! Form::open(['route' => 'contacts.store']) !!}
+                    {!! Form::open(['route' => 'contacts.store']) !!}                    
                     <div class="form-group">
-                        {!! Form::text('username',null,['class'=>'form-control','placeholder'=>'Please enter your contact Username']) !!}
+                        <select name="username" class="form-control">
+                            <option selected>Choose Your Friend To add ...</option>
+                            @forelse ($users as $user)
+                            <option>{{$user}}</option>
+                            @empty
+                            <option>There No Contant To Select ...</option>
+                            @endforelse
+                        </select>
                     </div>
                     <div class="form-group">
                         {!! Form::submit('Add',['class'=>'btn btn-primary']) !!}
